@@ -16,7 +16,7 @@ def generate_response_with_rotation(contents, generation_config=None):
             keys = [keys]
             
         # Shuffle keys to distribute load across different scans
-        random.shuffle(keys)
+        random.shuffle(keys)model = genai.GenerativeModel('gemini-1.5-flash')
     except:
         # Fallback if secrets are missing
         st.error("🚨 API Keys missing in Secrets!")
@@ -28,7 +28,8 @@ def generate_response_with_rotation(contents, generation_config=None):
         try:
             # Configure with the current key
             genai.configure(api_key=api_key)
-            model="gemini-3-flash-preview"
+            
+            model = genai.GenerativeModel('gemini-3-flash-preview')
             # Attempt generation
             response = model.generate_content(
                 contents=contents, 
