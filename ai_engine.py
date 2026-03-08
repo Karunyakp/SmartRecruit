@@ -28,8 +28,7 @@ def generate_response_with_rotation(contents, generation_config=None):
         try:
             # Configure with the current key
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel('gemini-1.5-flash')
-            
+            model = genai.GenerativeModel('gemini-3.1-flash-lite-preview')
             # Attempt generation
             response = model.generate_content(
                 contents=contents, 
@@ -237,4 +236,5 @@ def get_chat_response(messages):
         return response.text if response else "I'm having trouble connecting. Please check your internet or API limits."
     except Exception as e:
         return f"I encountered an error: {str(e)}"
+
 
