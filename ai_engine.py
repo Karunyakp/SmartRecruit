@@ -4,6 +4,7 @@ import json
 import random
 import time
 
+# --- HELPER: SMART KEY ROTATION ---
 def generate_response_with_rotation(contents, generation_config=None):
     """
     Tries to generate content using the list of API keys.
@@ -16,7 +17,7 @@ def generate_response_with_rotation(contents, generation_config=None):
             keys = [keys]
             
         # Shuffle keys to distribute load across different scans
-        random.shuffle(keys)model = genai.GenerativeModel('gemini-1.5-flash')
+        random.shuffle(keys)
     except:
         # Fallback if secrets are missing
         st.error("🚨 API Keys missing in Secrets!")
@@ -28,8 +29,8 @@ def generate_response_with_rotation(contents, generation_config=None):
         try:
             # Configure with the current key
             genai.configure(api_key=api_key)
-            
             model = genai.GenerativeModel('gemini-3-flash-preview')
+            
             # Attempt generation
             response = model.generate_content(
                 contents=contents, 
@@ -237,6 +238,3 @@ def get_chat_response(messages):
         return response.text if response else "I'm having trouble connecting. Please check your internet or API limits."
     except Exception as e:
         return f"I encountered an error: {str(e)}"
-
-
-
